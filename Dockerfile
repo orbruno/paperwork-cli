@@ -27,8 +27,8 @@ RUN uv pip install --system --no-cache ".[api]"
 
 # Templates and profiles are mounted at runtime via Docker volumes
 # Default paths (overridable via env vars)
-ENV RENDERCV_TEMPLATES_DIR=/app/templates
-ENV RENDERCV_PROFILES_DIR=/app/profiles
+ENV PAPERWORK_TEMPLATES_DIR=/app/templates
+ENV PAPERWORK_PROFILES_DIR=/app/profiles
 
 EXPOSE 8000
 

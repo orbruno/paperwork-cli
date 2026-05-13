@@ -14,10 +14,10 @@ from ..engine.renderer import RenderEngine
 
 def create_app() -> FastAPI:
     templates_dir = Path(
-        os.environ.get("RENDERCV_TEMPLATES_DIR", "/app/templates")
+        os.environ.get("PAPERWORK_TEMPLATES_DIR", "/app/templates")
     )
     profiles_dir = Path(
-        os.environ.get("RENDERCV_PROFILES_DIR", "/app/profiles")
+        os.environ.get("PAPERWORK_PROFILES_DIR", "/app/profiles")
     )
 
     engine = RenderEngine(templates_dir)
