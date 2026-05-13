@@ -1,0 +1,13 @@
+name: "Classic Wide"
+slug: "classic-wide"
+version: "1.0.0"
+description: "Classic layout with wider margins and spacing — optimised for 2-page CVs"
+author: "Orlando Bruno"
+
+html_file: "cv.html"
+css_file: "cv.css"
+scss_file: "cv.scss"
+
+page_size: "Letter"
+supports_photo: true
+spec_file: "spec.yaml"

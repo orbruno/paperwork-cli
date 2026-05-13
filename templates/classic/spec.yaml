@@ -1,0 +1,266 @@
+template: classic
+description: >
+  Classic single-page CV layout. Two-column header (contact left, photo right),
+  optional profile paragraph, 3-column skills grid, education and experience with
+  fixed-width date column, optional languages bar.
+
+# =============================================================================
+# Fields
+# min_chars / min_items: content below this is too thin — add more.
+# max_chars / max_items: content above this overflows the layout.
+# recommended_*: softer targets for quality and balance.
+# =============================================================================
+
+fields:
+
+  name:
+    required: true
+    type: string
+    description: Candidate's full name. Rendered as H1 in the header.
+    constraints:
+      min_chars: 2
+      max_chars: 60
+
+  titles:
+    required: false
+    type: list[string]
+    description: >
+      Professional titles or credentials shown below the name, joined by " | ".
+      Keep each title short — all titles share one line.
+    constraints:
+      min_items: 0
+      max_items: 3
+      min_chars_per_item: 3
+      max_chars_per_item: 50
+
+  contact_info:
+    required: true
+    type: object
+    description: Contact details rendered in a single line under the name and titles.
+    fields:
+      location:
+        required: false
+        type: string
+        description: City and country (e.g. "Cologne, Germany").
+        constraints:
+          min_chars: 3
+          max_chars: 40
+      phone:
+        required: false
+        type: string
+        constraints:
+          min_chars: 6
+          max_chars: 20
+      email:
+        required: false
+        type: string
+        constraints:
+          min_chars: 6
+          max_chars: 60
+      website_link:
+        required: false
+        type: url
+        description: Personal website. Displayed as base URL only.
+        constraints:
+          max_chars: 80
+      github:
+        required: false
+        type: url
+        description: Full GitHub profile URL. Displayed as "github".
+        constraints:
+          max_chars: 80
+      linkedin:
+        required: false
+        type: url
+        description: Full LinkedIn profile URL. Displayed as "linkedin".
+        constraints:
+          max_chars: 80
+
+  profile:
+    required: false
+    type: string
+    description: >
+      Short professional summary paragraph below the header. Tailor to the
+      specific job — mention the company and role directly. Must be substantive
+      enough to convey expertise but short enough to fit one paragraph.
+    constraints:
+      min_chars: 100
+      max_chars: 600
+      recommended_min_chars: 250
+      recommended_max_chars: 450
+
+  competencies_and_skills:
+    required: false
+    type: list[object]
+    description: >
+      Core skills section. Rendered as a 3-column grid of competency labels (max 9),
+      followed by a flat "Toolkit:" line of individual skills (max 15).
+      Order matters — most relevant competencies first.
+    constraints:
+      min_items: 3
+      max_items: 9
+      max_toolkit_items: 15
+    fields:
+      competency:
+        required: true
+        type: string
+        description: Category label shown in the grid cell.
+        constraints:
+          min_chars: 3
+          max_chars: 35
+      skills:
+        required: true
+        type: list[string]
+        description: >
+          Individual tools or techniques. All skills across all competencies are
+          pooled; the first 15 appear in the Toolkit line.
+        constraints:
+          min_items: 1
+          max_items: 8
+          min_chars_per_item: 2
+          max_chars_per_item: 30
+
+  education:
+    required: true
+    type: list[object]
+    description: Education entries. Most recent first.
+    constraints:
+      min_items: 1
+      max_items: 5
+    fields:
+      year:
+        required: true
+        type: string
+        description: Year or range (e.g. "2018 – 2024").
+        constraints:
+          min_chars: 4
+          max_chars: 14
+      degree:
+        required: true
+        type: string
+        description: Degree or qualification title. Rendered bold.
+        constraints:
+          min_chars: 5
+          max_chars: 80
+      institution:
+        required: true
+        type: string
+        constraints:
+          min_chars: 3
+          max_chars: 80
+      location:
+        required: false
+        type: string
+        constraints:
+          min_chars: 3
+          max_chars: 40
+      grade:
+        required: false
+        type: string | null
+        description: Grade or GPA (e.g. "1.3"). Set null to omit.
+        constraints:
+          max_chars: 20
+      details:
+        required: false
+        type: string | null
+        description: Specialisations, thesis, or honours. Set null to omit.
+        constraints:
+          min_chars: 10
+          max_chars: 120
+
+  work_experience:
+    required: true
+    type: list[object]
+    description: Experience entries. Most recent first.
+    constraints:
+      min_items: 1
+      max_items: 7
+      recommended_min_items: 3
+      recommended_max_items: 5
+    fields:
+      years:
+        required: true
+        type: string
+        description: Year range (e.g. "2024 – Present").
+        constraints:
+          min_chars: 4
+          max_chars: 14
+      position:
+        required: true
+        type: string
+        description: Job title. Rendered bold.
+        constraints:
+          min_chars: 3
+          max_chars: 60
+      company:
+        required: true
+        type: string
+        constraints:
+          min_chars: 2
+          max_chars: 60
+      location:
+        required: false
+        type: string
+        description: City, country, or "remote".
+        constraints:
+          min_chars: 3
+          max_chars: 40
+      roles:
+        required: false
+        type: list[string]
+        description: >
+          Bullet-point responsibilities or achievements. Lead with a strong verb.
+          One concise sentence per bullet, tailored to the target role.
+          Too short = no impact. Too long = wraps to 3+ lines, crowds the layout.
+        constraints:
+          min_items: 1
+          max_items: 5
+          min_chars_per_item: 40
+          max_chars_per_item: 160
+          recommended_min_chars_per_item: 60
+          recommended_max_chars_per_item: 130
+
+  languages:
+    required: false
+    type: list[object]
+    description: >
+      Languages bar. Max 4 items fit on one line with vertical separators.
+    constraints:
+      min_items: 1
+      max_items: 4
+    fields:
+      language:
+        required: true
+        type: string
+        constraints:
+          min_chars: 2
+          max_chars: 20
+      level:
+        required: true
+        type: string
+        description: e.g. "C2 – Fluent", "Native", "B2 – Business level".
+        constraints:
+          min_chars: 4
+          max_chars: 30
+
+# =============================================================================
+# Layout reference
+# Mirrors the variable values in cv.scss. Update both files together.
+# =============================================================================
+
+layout:
+  page_size: Letter
+  page_margin_top: 1cm        # top page margin
+  page_margin_bottom: 1cm     # bottom page margin
+  page_margin_side: 1cm       # left and right page margins
+  font: Arial
+  font_size_body: 10px
+  font_size_heading: 11px
+  font_size_name: 22px
+  photo_size: 90px
+  year_col_width: 88px        # fixed width of the date column in education/experience
+  entry_col_gap: 10px         # gutter between date column and details column
+  section_gap: 18px           # vertical space between sections
+  section_title_gap: 6px      # space between section title line and first entry
+  entry_gap: 8px              # vertical space between entries within a section
+  skill_grid_columns: 3

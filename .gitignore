@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+.env.*
+*.sqlite3
+*.db
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.sublime-workspace
+*.sublime-project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build/output
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Node/SASS (if using)
+node_modules/
+*.css.map
+
+# PDF/media output
+*.pdf
+/media/

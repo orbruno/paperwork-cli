@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ name }} - CV</title>
+  </head>
+  <body>
+    <div class="section header">
+      <div class="header__contact-info">
+        <div class="header__titles">
+          <h1>{{ name }}</h1>
+          {% if titles %}
+          <h2>{{ titles | join(' | ') }}</h2>
+          {% endif %}
+        </div>
+        <div class="header__contact-lines">
+          <p>
+            <span>
+              {% if contact_info.location %} {{ contact_info.location }} | {% endif %}
+              {% if contact_info.phone %} {{ contact_info.phone }} | {% endif %}
+              {% if contact_info.email %} {{ contact_info.email }} | {% endif %}
+              {% if contact_info.website_link %} <a href="{{ contact_info.website_link }}">{{ contact_info.website_link | base_url }}</a> | {% endif %}
+              {% if contact_info.github %} <a href="{{ contact_info.github }}">github</a> | {% endif %}
+              {% if contact_info.linkedin %} <a href="{{ contact_info.linkedin }}">linkedin</a> {% endif %}
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="header__profile-image-container">
+        <img
+          src="{{ photo if photo else 'assets/profile.jpg' }}"
+          alt="Profile picture"
+          class="header__profile-image"
+        />
+      </div>
+    </div>
+
+    {% if profile %}
+    <div class="section profile">
+      <div class="section-title-lined-wrapper">
+        <h2 class="section-title-lined">PROFESSIONAL PROFILE</h2>
+        <span class="section-title-lined-line"></span>
+      </div>
+      <p>{{ profile }}</p>
+    </div>
+    {% endif %}
+
+    {% if competencies_and_skills %}
+    <div class="section skills">
+      <div class="section-title-lined-wrapper">
+        <h2 class="section-title-lined">CORE SKILLS</h2>
+        <span class="section-title-lined-line"></span>
+      </div>
+      <div class="skills__grid">
+        {% for item in competencies_and_skills[:9] %}
+        <span class="skills__category">{{ item.competency }}</span>
+        {% endfor %}
+      </div>
+      {% set ns = namespace(all_skills=[]) %}
+      {% for item in competencies_and_skills %}
+        {% for skill in item.skills %}
+          {% set ns.all_skills = ns.all_skills + [skill] %}
+        {% endfor %}
+      {% endfor %}
+      <p class="skills__toolkit"><strong>Toolkit:</strong> {{ ns.all_skills | join(', ') }}</p>
+    </div>
+    {% endif %}
+
+    <div class="section education">
+      <div class="section-title-lined-wrapper">
+        <h2 class="section-title-lined">EDUCATION</h2>
+        <span class="section-title-lined-line"></span>
+      </div>
+      <div class="education__list-container">
+        <ul class="education__list">
+          {% for item in education %}
+          <li>
+            <span class="education__year">{{ item.year }}</span>
+            <span class="education__details">
+              <strong>{{ item.degree }}</strong><br />
+              {{ item.institution }}
+              {% if item.location %}, {{ item.location }}{% endif %}
+              {% if item.grade %}<br />Grade: {{ item.grade }}{% endif %}
+              {% if item.details %}<br />{{ item.details }}{% endif %}
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="section experience">
+      <div class="section-title-lined-wrapper">
+        <h2 class="section-title-lined">RELEVANT EXPERIENCE</h2>
+        <span class="section-title-lined-line"></span>
+      </div>
+      <div class="experience__list-container">
+        <ul class="experience__list">
+          {% for item in work_experience %}
+          <li>
+            <span class="experience__year">{{ item.years }}</span>
+            <div class="experience__details">
+              <div class="experience__role">
+                <strong>{{ item.position }}</strong><br />{{ item.company }}
+                {% if item.location %}, {{ item.location }}{% endif %}
+              </div>
+              {% if item.roles %}
+              <ul class="experience__responsibilities">
+                {% for role in item.roles %}
+                <li>{{ role }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    {% if languages %}
+    <div class="section languages">
+      <div class="section-title-lined-wrapper">
+        <h2 class="section-title-lined">LANGUAGES</h2>
+        <span class="section-title-lined-line"></span>
+      </div>
+      <ul class="languages__list">
+        {% for item in languages %}
+        <li>{{ item.language }}: {{ item.level }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if certifications %}
+    <div class="section certifications">
+      <div class="section-title-lined-wrapper">
+        <h2 class="section-title-lined">CERTIFICATIONS</h2>
+        <span class="section-title-lined-line"></span>
+      </div>
+      <ul class="certifications__list">
+        {% for item in certifications %}
+        <li><strong>{{ item.name }}</strong> — {{ item.issuer }}, {{ item.year }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+  </body>
+</html>

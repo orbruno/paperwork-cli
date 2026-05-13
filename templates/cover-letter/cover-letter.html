@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ name }} - Cover Letter</title>
+  </head>
+  <body>
+
+    <div class="sender">
+      <p class="sender__name">{{ name }}</p>
+      {% if extra.sender_address %}
+        {% if extra.sender_address.street %}<p>{{ extra.sender_address.street }}</p>{% endif %}
+        {% if extra.sender_address.city %}<p>{{ extra.sender_address.city }}</p>{% endif %}
+      {% endif %}
+      {% if contact_info.phone %}<p>{{ contact_info.phone }}</p>{% endif %}
+      {% if contact_info.email %}<p>{{ contact_info.email }}</p>{% endif %}
+    </div>
+
+    {% if extra.recipient %}
+    {% set r_contact = extra.recipient.contact_name or extra.recipient.name %}
+    {% set r_street = extra.recipient.street or extra.recipient.address %}
+    {% set r_city = extra.recipient.postal_city_country or extra.recipient.city %}
+    <div class="recipient">
+      {% if extra.recipient.company %}<p>{{ extra.recipient.company }}</p>{% endif %}
+      {% if r_contact %}<p>{{ r_contact }}</p>{% endif %}
+      {% if r_street %}<p>{{ r_street }}</p>{% endif %}
+      {% if r_city %}<p>{{ r_city }}</p>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if extra.date %}
+    <p class="date">{{ extra.date }}</p>
+    {% endif %}
+
+    {% if extra.subject %}
+    <p class="subject">{{ extra.subject }}</p>
+    {% endif %}
+
+    {% if extra.salutation %}
+    <p class="salutation">{{ extra.salutation }}</p>
+    {% endif %}
+
+    {% if extra.body %}
+    <div class="body">
+      {% for paragraph in extra.body %}
+      <p>{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="closing-block">
+      {% if extra.closing %}
+      <p class="closing">{{ extra.closing }}</p>
+      {% endif %}
+      <img
+        src="{{ extra.signature if extra.signature else 'assets/signature.png' }}"
+        alt="Signature"
+        class="signature-image"
+      />
+      <p class="closing-name">{{ name }}</p>
+    </div>
+
+  </body>
+</html>

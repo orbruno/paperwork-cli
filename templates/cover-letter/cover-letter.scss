@@ -1,0 +1,176 @@
+// =============================================================================
+// Cover Letter Template — Variables
+// =============================================================================
+
+// — Page ──────────────────────────────────────────────────────────────────────
+$page-size:             Letter;
+$page-margin-top:       2cm;
+$page-margin-bottom:    2cm;
+$page-margin-side:      2.5cm;
+
+// — Typography ─────────────────────────────────────────────────────────────────
+$font-family:           Arial, sans-serif;
+$font-size-body:        10px;
+$font-size-name:        14px;
+$line-height:           1.5;
+
+// — Colors ─────────────────────────────────────────────────────────────────────
+$color-text:            #1a1a1a;
+
+// — Spacing ────────────────────────────────────────────────────────────────────
+$sender-margin-bottom:    28px;   // gap between sender block and recipient
+$recipient-margin-bottom: 20px;   // gap between recipient block and date
+$date-margin-bottom:      20px;   // gap between date and subject
+$subject-margin-bottom:   16px;   // gap between subject and salutation
+$salutation-margin-bottom:12px;   // gap between salutation and body
+$paragraph-gap:           10px;   // gap between body paragraphs
+$closing-margin-top:      28px;   // gap between last body paragraph and closing
+$signature-height:        58px;   // signature image height
+
+
+// =============================================================================
+// CSS Custom Properties
+// Exposed for runtime overrides via `paperwork generate --set KEY=VALUE`.
+// =============================================================================
+
+:root {
+  --font-size-body:          #{$font-size-body};
+  --font-size-name:          #{$font-size-name};
+  --line-height:             #{$line-height};
+  --sender-margin-bottom:    #{$sender-margin-bottom};
+  --recipient-margin-bottom: #{$recipient-margin-bottom};
+  --date-margin-bottom:      #{$date-margin-bottom};
+  --subject-margin-bottom:   #{$subject-margin-bottom};
+  --salutation-margin-bottom:#{$salutation-margin-bottom};
+  --paragraph-gap:           #{$paragraph-gap};
+  --closing-margin-top:      #{$closing-margin-top};
+  --signature-height:        #{$signature-height};   // override: --set signature-height=Xpx
+}
+
+
+// =============================================================================
+// Page
+// =============================================================================
+
+@page {
+  size: $page-size;
+  margin: $page-margin-top $page-margin-side $page-margin-bottom $page-margin-side;
+}
+
+
+// =============================================================================
+// Base resets
+// =============================================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  font-size: var(--font-size-body);
+  color: $color-text;
+  line-height: var(--line-height);
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+// =============================================================================
+// Sender block (top-right)
+// =============================================================================
+
+.sender {
+  text-align: right;
+  margin-bottom: var(--sender-margin-bottom);
+
+  &__name {
+    font-size: var(--font-size-name);
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+
+  p + p {
+    margin-top: 2px;
+  }
+}
+
+
+// =============================================================================
+// Recipient block (left-aligned)
+// =============================================================================
+
+.recipient {
+  margin-bottom: var(--recipient-margin-bottom);
+
+  p + p {
+    margin-top: 2px;
+  }
+}
+
+
+// =============================================================================
+// Date
+// =============================================================================
+
+.date {
+  text-align: right;
+  margin-bottom: var(--date-margin-bottom);
+}
+
+
+// =============================================================================
+// Subject line
+// =============================================================================
+
+.subject {
+  font-weight: bold;
+  margin-bottom: var(--subject-margin-bottom);
+}
+
+
+// =============================================================================
+// Salutation
+// =============================================================================
+
+.salutation {
+  margin-bottom: var(--salutation-margin-bottom);
+}
+
+
+// =============================================================================
+// Body paragraphs
+// =============================================================================
+
+.body {
+  p + p {
+    margin-top: var(--paragraph-gap);
+  }
+}
+
+
+// =============================================================================
+// Closing block
+// =============================================================================
+
+.closing-block {
+  margin-top: var(--closing-margin-top);
+}
+
+.signature-image {
+  display: block;
+  height: var(--signature-height);
+  width: auto;
+}
+
+.closing-name {
+  font-weight: bold;
+}

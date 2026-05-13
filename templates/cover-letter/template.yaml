@@ -1,0 +1,14 @@
+name: "Cover Letter"
+slug: "cover-letter"
+version: "1.0.0"
+description: "Professional cover letter with right-aligned sender block, recipient address, and formatted body"
+author: "Orlando Bruno"
+
+html_file: "cover-letter.html"
+css_file: "cover-letter.css"
+scss_file: "cover-letter.scss"
+
+page_size: "Letter"
+supports_photo: false
+target_pages: 1
+spec_file: "spec.yaml"

@@ -1,0 +1,14 @@
+name: "Classic"
+slug: "classic"
+version: "1.0.0"
+description: "Professional CV with profile photo, grid-based layout, section dividers"
+author: "Orlando Bruno"
+
+html_file: "cv.html"
+css_file: "cv.css"
+scss_file: "cv.scss"
+
+page_size: "Letter"
+supports_photo: true
+target_pages: 1
+spec_file: "spec.yaml"

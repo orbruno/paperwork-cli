@@ -1,0 +1,94 @@
+@page {
+  size: Letter;
+  margin: 2cm 2.5cm 2cm 2.5cm;
+}
+
+:root {
+  --font-size-body: 10px;
+  --font-size-name: 14px;
+  --line-height: 1.5;
+  --sender-margin-bottom: 28px;
+  --recipient-margin-bottom: 20px;
+  --date-margin-bottom: 20px;
+  --subject-margin-bottom: 16px;
+  --salutation-margin-bottom: 12px;
+  --paragraph-gap: 10px;
+  --closing-margin-top: 28px;
+  --signature-height: 58px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: var(--font-size-body);
+  color: #1a1a1a;
+  line-height: var(--line-height);
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sender {
+  text-align: right;
+  margin-bottom: var(--sender-margin-bottom);
+}
+
+.sender__name {
+  font-size: var(--font-size-name);
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.sender p + p {
+  margin-top: 2px;
+}
+
+.recipient {
+  margin-bottom: var(--recipient-margin-bottom);
+}
+
+.recipient p + p {
+  margin-top: 2px;
+}
+
+.date {
+  text-align: right;
+  margin-bottom: var(--date-margin-bottom);
+}
+
+.subject {
+  font-weight: bold;
+  margin-bottom: var(--subject-margin-bottom);
+}
+
+.salutation {
+  margin-bottom: var(--salutation-margin-bottom);
+}
+
+.body p + p {
+  margin-top: var(--paragraph-gap);
+}
+
+.closing-block {
+  margin-top: var(--closing-margin-top);
+}
+
+.signature-image {
+  display: block;
+  height: var(--signature-height);
+  width: auto;
+}
+
+.closing-name {
+  font-weight: bold;
+}

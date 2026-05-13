@@ -1,0 +1,163 @@
+template: cover-letter
+description: >
+  Professional cover letter. Sender block top-right (name, address, phone, email),
+  recipient block left, right-aligned date, bold subject line, body paragraphs,
+  and a closing block with a signature space.
+
+# =============================================================================
+# Standard CVData fields used by this template
+# =============================================================================
+
+fields:
+
+  name:
+    required: true
+    type: string
+    description: Sender's full name. Shown in the sender block and closing.
+    constraints:
+      min_chars: 2
+      max_chars: 60
+
+  contact_info:
+    required: true
+    type: object
+    description: Only phone and email are used in this template.
+    fields:
+      phone:
+        required: false
+        type: string
+        constraints:
+          max_chars: 20
+      email:
+        required: false
+        type: string
+        constraints:
+          max_chars: 60
+
+# =============================================================================
+# Template-specific fields — all placed under `extra:` in the job YAML
+# =============================================================================
+
+extra:
+
+  sender_address:
+    required: false
+    type: object
+    description: Physical address shown in the sender block below the name.
+    fields:
+      street:
+        required: false
+        type: string
+        description: Street name and house number.
+        constraints:
+          max_chars: 60
+      city:
+        required: false
+        type: string
+        description: Postcode and city (e.g. "50667 Cologne").
+        constraints:
+          max_chars: 40
+
+  recipient:
+    required: false
+    type: object
+    description: >
+      Addressee block displayed left-aligned below the sender. Rendered as four
+      lines: company name, recipient name, street + house number, postal code + city + country.
+    fields:
+      company:
+        required: false
+        type: string
+        description: Company name (line 1).
+        constraints:
+          max_chars: 80
+      contact_name:
+        required: false
+        type: string
+        description: Recipient's full name (line 2, e.g. "Ms. Julia Meier").
+        constraints:
+          max_chars: 60
+      street:
+        required: false
+        type: string
+        description: Street name and house number (line 3, e.g. "Pilgrimstraße 6").
+        constraints:
+          max_chars: 80
+      postal_city_country:
+        required: false
+        type: string
+        description: Postal code, city, and country (line 4, e.g. "50674 Köln, Germany").
+        constraints:
+          max_chars: 60
+
+  date:
+    required: false
+    type: string
+    description: >
+      Date displayed right-aligned above the subject. Use a spelled-out format
+      for a professional appearance (e.g. "May 13, 2026" or "13. Mai 2026").
+    constraints:
+      max_chars: 40
+
+  subject:
+    required: true
+    type: string
+    description: >
+      Subject line rendered in bold. Mention the role and reference number if
+      applicable (e.g. "Application for Senior Data Engineer — Ref. JD-2026-42").
+    constraints:
+      min_chars: 10
+      max_chars: 120
+
+  salutation:
+    required: true
+    type: string
+    description: >
+      Opening greeting (e.g. "Dear Ms. Meier," or "Dear Hiring Team,").
+    constraints:
+      min_chars: 5
+      max_chars: 80
+
+  body:
+    required: true
+    type: list[string]
+    description: >
+      Body paragraphs in order. Each string is one paragraph. Three paragraphs
+      is standard: opening hook, core pitch, closing call-to-action.
+    constraints:
+      min_items: 2
+      max_items: 5
+      min_chars_per_item: 100
+      max_chars_per_item: 800
+      recommended_min_chars_per_item: 200
+      recommended_max_chars_per_item: 500
+
+  closing:
+    required: false
+    type: string
+    description: >
+      Closing phrase before the signature space (e.g. "Sincerely," or
+      "Kind regards,").
+    constraints:
+      max_chars: 40
+
+# =============================================================================
+# Layout reference
+# =============================================================================
+
+layout:
+  page_size: Letter
+  page_margin_top: 2cm
+  page_margin_bottom: 2cm
+  page_margin_side: 2.5cm
+  font: Arial
+  font_size_body: 10px
+  font_size_name: 14px
+  line_height: 1.5
+  sender_margin_bottom: 28px
+  recipient_margin_bottom: 20px
+  date_margin_bottom: 20px
+  subject_margin_bottom: 16px
+  paragraph_gap: 10px
+  closing_margin_top: 28px
+  signature_height: 58px

@@ -1,0 +1,253 @@
+// =============================================================================
+// CV Template — Variables
+// Adjust these to control the entire layout without touching component styles.
+// =============================================================================
+
+// — Page ──────────────────────────────────────────────────────────────────────
+$page-size:            Letter;       // Letter | A4
+$page-margin-top:      1cm;          // top page margin
+$page-margin-bottom:   1cm;          // bottom page margin
+$page-margin-side:     1cm;          // left and right page margins
+
+// — Typography ─────────────────────────────────────────────────────────────────
+$font-family:          Arial, sans-serif;
+$font-size-name:       22px;         // candidate name (h1)
+$font-size-heading:    11px;         // section titles
+$font-size-body:       10px;         // all body text: entries, bullets, contact
+
+// — Colors ─────────────────────────────────────────────────────────────────────
+$color-text:           #1a1a1a;
+$color-divider:        #bbbbbb;      // section title horizontal line
+$color-separator:      #000000;      // language item vertical separator
+
+// — Section layout ─────────────────────────────────────────────────────────────
+$section-gap:          18px;         // vertical space between sections
+$section-title-gap:    6px;          // space between section title and first entry
+
+// — Entry layout (education + experience rows) ─────────────────────────────────
+$entry-gap:            8px;          // vertical space between entries within a section
+$entry-col-gap:        10px;         // horizontal gap between year and details columns
+$year-col-width:       88px;         // year column fixed width (WeasyPrint has no subgrid support)
+
+// — Internal spacing (padding, small gaps within components) ───────────────────
+$space-xs:             3px;
+$space-s:              6px;
+$space-m:              10px;
+
+// — Header ─────────────────────────────────────────────────────────────────────
+$photo-size:           90px;         // profile photo diameter
+
+// — Skills ─────────────────────────────────────────────────────────────────────
+$skill-cols:           3;            // columns in the skills category grid
+
+
+// =============================================================================
+// Page
+// =============================================================================
+
+@page {
+  size: $page-size;
+  margin: $page-margin-top $page-margin-side $page-margin-bottom $page-margin-side;
+}
+
+
+// =============================================================================
+// Base resets
+// =============================================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  font-size: $font-size-body;
+  color: $color-text;
+  line-height: 1.4;
+}
+
+h1, h2, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+h1 { font-size: $font-size-name; }
+h2 { font-size: $font-size-heading; }
+
+ul { list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+// =============================================================================
+// Section wrapper
+// =============================================================================
+
+.section {
+  margin-bottom: $section-gap;
+}
+
+
+// =============================================================================
+// Section title (CV/SectionTitle)
+// =============================================================================
+
+.section-title-lined-wrapper {
+  display: flex;
+  align-items: center;
+  gap: $space-s;
+  margin-bottom: $section-title-gap;
+}
+
+.section-title-lined {
+  font-size: $font-size-heading;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.section-title-lined-line {
+  flex: 1;
+  border-bottom: 1px solid $color-divider;
+}
+
+
+// =============================================================================
+// Header (CV/Header)
+// =============================================================================
+
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: $space-m;
+  align-items: center;
+
+  &__contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-s;
+  }
+
+  &__contact-lines {
+    font-size: $font-size-body;
+  }
+
+  &__profile-image-container {
+    width: $photo-size;
+    height: $photo-size;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  &__profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+
+// =============================================================================
+// Entry layout — shared grid for education + experience (CV/EntryLayout)
+//
+// Grid lives on each li (WeasyPrint 68.x has no subgrid support).
+// $year-col-width is a fixed pixel value matching the Figma mockup column.
+// =============================================================================
+
+@mixin entry-row {
+  display: grid;
+  grid-template-columns: $year-col-width 1fr;
+  column-gap: $entry-col-gap;
+  font-size: $font-size-body;
+  align-items: start;
+  padding-bottom: $entry-gap;
+  break-inside: avoid;
+}
+
+
+// =============================================================================
+// Education (CV/EducationEntry)
+// =============================================================================
+
+.education__list {
+  li { @include entry-row; }
+}
+
+.education__year {
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+
+// =============================================================================
+// Experience (CV/ExperienceEntry)
+// =============================================================================
+
+.experience__list {
+  li { @include entry-row; }
+}
+
+.experience__year { white-space: nowrap; font-weight: bold; }
+
+.experience__role {
+  font-weight: bold;
+  margin-bottom: $space-xs;
+}
+
+.experience__responsibilities {
+  list-style: disc;
+  padding-left: $space-m;
+  margin-top: $space-xs;
+
+  li {
+    display: list-item;
+    padding-bottom: $space-xs;
+  }
+}
+
+
+// =============================================================================
+// Skills (CV/SkillsBlock)
+// =============================================================================
+
+.skills {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat($skill-cols, 1fr);
+    gap: $space-xs $space-m;
+    margin-bottom: $space-s;
+  }
+
+  &__category {
+    font-size: $font-size-body;
+  }
+
+  &__toolkit {
+    font-size: $font-size-body;
+  }
+}
+
+
+// =============================================================================
+// Languages (CV/LanguageItem)
+// =============================================================================
+
+.languages__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  li {
+    font-size: $font-size-body;
+    text-align: center;
+    padding: 0 $space-s;
+    border-right: 1px solid $color-separator;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
