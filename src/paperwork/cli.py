@@ -248,7 +248,7 @@ CONTEXT_SETTINGS = dict(
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.option(
     "--templates-dir",
-    type=click.Path(path_type=Path),
+    type=click.Path(path_type=Path, exists=False, readable=False),
     default=None,
     help="Templates directory. Falls back to PAPERWORK_TEMPLATES_DIR env var, then ./templates/.",
 )
@@ -317,10 +317,10 @@ def list_templates(ctx):
 # =============================================================================
 
 @cli.command()
-@click.option("--profile", "-p", default=None, type=click.Path(path_type=Path), help="Path to YAML profile.")
-@click.option("--job", "-j", default=None, type=click.Path(path_type=Path), help="Path to job YAML (profile + render: block). Replaces --profile/--template/--output.")
+@click.option("--profile", "-p", default=None, type=click.Path(path_type=Path, exists=False, readable=False), help="Path to YAML profile.")
+@click.option("--job", "-j", default=None, type=click.Path(path_type=Path, exists=False, readable=False), help="Path to job YAML (profile + render: block). Replaces --profile/--template/--output.")
 @click.option("--template", "-t", default=None, help="Template slug (e.g. classic). Not needed with --job.")
-@click.option("--output", "-o", default=None, type=click.Path(path_type=Path), help="Output PDF path. Not needed with --job.")
+@click.option("--output", "-o", default=None, type=click.Path(path_type=Path, exists=False, readable=False), help="Output PDF path. Not needed with --job.")
 @click.option("--auto-fit", is_flag=True, default=False, help="Auto-fit content to target page count.")
 @click.option("--target-pages", type=int, default=None, help="Target number of pages (default: 1).")
 @click.option("--fit-report", is_flag=True, default=False, help="Include auto-fit report in output.")
@@ -496,7 +496,7 @@ def generate(ctx, profile, job, template, output, auto_fit, target_pages, fit_re
 # =============================================================================
 
 @cli.command()
-@click.option("--profile", "-p", required=True, type=click.Path(path_type=Path), help="Path to YAML profile.")
+@click.option("--profile", "-p", required=True, type=click.Path(path_type=Path, exists=False, readable=False), help="Path to YAML profile.")
 @click.option("--template", "-t", required=True, help="Template slug (e.g. classic).")
 @click.pass_context
 def validate(ctx, profile, template):
@@ -552,7 +552,7 @@ def validate(ctx, profile, template):
 # =============================================================================
 
 @cli.command()
-@click.option("--profile", "-p", required=True, type=click.Path(path_type=Path), help="Path to YAML profile.")
+@click.option("--profile", "-p", required=True, type=click.Path(path_type=Path, exists=False, readable=False), help="Path to YAML profile.")
 @click.option("--template", "-t", required=True, help="Template slug (e.g. classic).")
 @click.pass_context
 def preview(ctx, profile, template):
@@ -657,7 +657,7 @@ def spec(ctx, template):
 # =============================================================================
 
 @cli.command()
-@click.option("--profile", "-p", required=True, type=click.Path(path_type=Path), help="Path to YAML profile.")
+@click.option("--profile", "-p", required=True, type=click.Path(path_type=Path, exists=False, readable=False), help="Path to YAML profile.")
 @click.option("--template", "-t", required=True, help="Template slug (e.g. classic).")
 @click.option("--target-pages", type=int, default=1, help="Target number of pages (default: 1).")
 @click.pass_context
