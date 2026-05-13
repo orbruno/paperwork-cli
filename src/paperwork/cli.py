@@ -196,9 +196,12 @@ def _resolve_templates_dir(explicit: Path | None) -> Path:
         if resolved.exists():
             return resolved
 
-    local = Path.cwd() / "templates"
-    if local.exists():
-        return local
+    try:
+        local = Path.cwd() / "templates"
+        if local.exists():
+            return local
+    except (PermissionError, OSError):
+        pass
 
     _err(
         ExitCode.ARG_MISUSE,
